@@ -1,4 +1,4 @@
-
+remember some of these are from steam share :) if u whant to opt out of any devs of any games send me a email or mssg me on github remember this is our project and are recodded or remade from hand drawn or copyed assets from our steam faimly share :)
 to any dev looking these are all webports!
 that aere public
 
