@@ -1,0 +1,1867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clover!</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=VT323&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Righteous&family=Iceland&family=Audiowide&family=Black+Ops+One&family=Creepster&family=Monoton&family=Russo+One&family=Bungee+Shade&family=Fredoka+One&family=Rajdhani:wght@300;400;500;600;700&family=Teko:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Mulish', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #340c60 25%, #50148e 50%, #340c60 75%, #1a0033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+            transition: background 0.5s ease;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Online counter animation */
+        .online-count {
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .online-count.updating {
+            animation: countPulse 0.3s ease;
+        }
+
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); color: inherit; }
+            50% { transform: scale(1.15); color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+        }
+
+        /* Black theme */
+        body.theme-black {
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d2d2d 50%, #1a1a1a 75%, #000000 100%);
+        }
+        body.theme-black .main-title,
+        body.theme-black .subtitle,
+        body.theme-black .bottom-item p {
+            color: #ffffff;
+        }
+        body.theme-black .mouse-trail-star {
+            background: #666666;
+        }
+
+        /* Green theme */
+        body.theme-green {
+            background: linear-gradient(135deg, #001a0d 0%, #0d4d2d 25%, #198754 50%, #0d4d2d 75%, #001a0d 100%);
+        }
+        body.theme-green .main-title {
+            color: #90ee90;
+        }
+        body.theme-green .subtitle,
+        body.theme-green .bottom-item p {
+            color: rgba(144, 238, 144, 0.9);
+        }
+        body.theme-green .mouse-trail-star {
+            background: #90ee90;
+        }
+
+        /* Red theme */
+        body.theme-red {
+            background: linear-gradient(135deg, #1a0000 0%, #4d0d0d 25%, #8b1a1a 50%, #4d0d0d 75%, #1a0000 100%);
+        }
+        body.theme-red .main-title {
+            color: #ffb3b3;
+        }
+        body.theme-red .subtitle,
+        body.theme-red .bottom-item p {
+            color: rgba(255, 179, 179, 0.9);
+        }
+        body.theme-red .mouse-trail-star {
+            background: #ff6b6b;
+        }
+
+        /* Rambo theme */
+        body.theme-rambo {
+            background: linear-gradient(135deg, #0a0000 0%, #330000 25%, #660000 50%, #330000 75%, #0a0000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 3s ease infinite;
+        }
+        body.theme-rambo .main-title {
+            color: #ff0000;
+            text-shadow: 0 0 20px #ff0000;
+            animation: pulse 0.5s infinite;
+        }
+        body.theme-rambo .subtitle,
+        body.theme-rambo .bottom-item p {
+            color: rgba(255, 0, 0, 0.9);
+        }
+        body.theme-rambo .mouse-trail-star {
+            background: #ff0000;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+        body.theme-rambo .star {
+            animation: twinkle 0.5s infinite;
+        }
+
+        /* CYBERPUNK 2077 AUTHENTIC THEME */
+        body.theme-cyberpunk2077 {
+            background: linear-gradient(135deg, #000000 0%, #0a0a0f 20%, #1a1a2e 40%, #0a0a0f 60%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        body.theme-cyberpunk2077::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(252, 231, 24, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(252, 231, 24, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-cyberpunk2077 .main-title {
+            color: #fce718;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-shadow:
+                0 0 5px #fce718,
+                0 0 10px #fce718,
+                0 0 20px #fce718,
+                0 0 40px #00f0ff,
+                2px 2px 0px #00f0ff,
+                4px 4px 0px #ff003c,
+                -2px -2px 0px #00f0ff;
+            animation: cyberpunk2077Glitch 5s infinite;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        body.theme-cyberpunk2077 .subtitle {
+            color: #00f0ff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            text-shadow:
+                0 0 10px #00f0ff,
+                0 0 20px #00f0ff,
+                2px 2px 0px #fce718;
+            letter-spacing: 0.1em;
+        }
+        body.theme-cyberpunk2077 .bottom-item p {
+            color: #fce718;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            text-shadow: 0 0 8px #fce718;
+        }
+        body.theme-cyberpunk2077 .online-count {
+            color: #00f0ff;
+            text-shadow: 0 0 10px #00f0ff;
+        }
+        body.theme-cyberpunk2077 .mouse-trail-star {
+            background: #fce718;
+            box-shadow: 0 0 20px #fce718, 0 0 40px #00f0ff;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes cyberpunk2077Glitch {
+            0%, 90%, 100% {
+                transform: translateX(0) skew(0deg);
+                text-shadow:
+                    0 0 5px #fce718,
+                    0 0 10px #fce718,
+                    0 0 20px #fce718,
+                    0 0 40px #00f0ff,
+                    2px 2px 0px #00f0ff,
+                    4px 4px 0px #ff003c,
+                    -2px -2px 0px #00f0ff;
+            }
+            91% {
+                transform: translateX(-3px) skew(-1deg);
+                text-shadow:
+                    0 0 5px #fce718,
+                    -5px 0 10px #ff003c,
+                    5px 0 10px #00f0ff;
+            }
+            92% {
+                transform: translateX(3px) skew(1deg);
+                text-shadow:
+                    0 0 5px #fce718,
+                    5px 0 10px #ff003c,
+                    -5px 0 10px #00f0ff;
+            }
+            94% {
+                transform: translateX(-2px) skew(-0.5deg);
+            }
+        }
+
+        /* MINECRAFT THEME */
+        body.theme-minecraft {
+            background: linear-gradient(135deg, #1a4d1a 0%, #2d7a2d 25%, #4db84d 50%, #2d7a2d 75%, #1a4d1a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 12s ease infinite;
+            image-rendering: pixelated;
+        }
+        body.theme-minecraft::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 16px 16px;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-minecraft .main-title {
+            color: #ffffff;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow:
+                4px 4px 0px #3f3f3f,
+                0 0 20px rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.1em;
+            font-size: 3.5rem;
+            image-rendering: pixelated;
+        }
+        body.theme-minecraft .subtitle {
+            color: #ffff55;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            text-shadow: 3px 3px 0px #555500;
+        }
+        body.theme-minecraft .bottom-item p {
+            color: #ffffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            text-shadow: 2px 2px 0px #3f3f3f;
+        }
+        body.theme-minecraft .mouse-trail-star {
+            background: #8b4513;
+            box-shadow: 0 0 10px #8b4513;
+            animation: fadeOutStar 0.3s ease-out forwards;
+            image-rendering: pixelated;
+        }
+
+        /* DOOM THEME */
+        body.theme-doom {
+            background: linear-gradient(135deg, #330000 0%, #660000 25%, #990000 50%, #660000 75%, #330000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 4s ease infinite;
+        }
+        body.theme-doom .main-title {
+            color: #ff0000;
+            font-family: 'Black Ops One', cursive;
+            text-shadow:
+                0 0 10px #ff0000,
+                0 0 20px #ff0000,
+                0 0 30px #ff6600,
+                5px 5px 0px #000000,
+                10px 10px 0px #330000;
+            animation: doomShake 0.1s infinite;
+            letter-spacing: 0.2em;
+            transform-origin: center;
+        }
+        body.theme-doom .subtitle {
+            color: #ff6600;
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.2rem;
+            text-shadow:
+                0 0 15px #ff6600,
+                3px 3px 0px #000000;
+        }
+        body.theme-doom .bottom-item p {
+            color: #ff0000;
+            font-family: 'Black Ops One', cursive;
+            font-size: 0.8rem;
+            text-shadow: 0 0 10px #ff0000, 2px 2px 0px #000000;
+        }
+        body.theme-doom .mouse-trail-star {
+            background: #ff0000;
+            box-shadow: 0 0 30px #ff0000, 0 0 60px #ff6600;
+            animation: fadeOutStar 0.2s ease-out forwards;
+        }
+        @keyframes doomShake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+            50% { transform: translate(1px, -1px) rotate(0.5deg); }
+            75% { transform: translate(-1px, -1px) rotate(-0.3deg); }
+        }
+
+        /* PORTAL THEME */
+        body.theme-portal {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+        body.theme-portal .main-title {
+            color: #ff8800;
+            font-family: 'Teko', sans-serif;
+            font-weight: 700;
+            text-shadow:
+                0 0 20px #ff8800,
+                0 0 40px #ff8800,
+                0 0 60px #0099ff,
+                3px 3px 0px #0099ff;
+            animation: portalPulse 2s infinite alternate;
+            letter-spacing: 0.1em;
+        }
+        body.theme-portal .subtitle {
+            color: #0099ff;
+            font-family: 'Teko', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            text-shadow:
+                0 0 20px #0099ff,
+                0 0 40px #0099ff,
+                2px 2px 0px #ff8800;
+        }
+        body.theme-portal .bottom-item p {
+            color: #ffffff;
+            font-family: 'Teko', sans-serif;
+            font-weight: 500;
+            text-shadow: 0 0 10px #ffffff;
+        }
+        body.theme-portal .mouse-trail-star {
+            background: linear-gradient(90deg, #ff8800 50%, #0099ff 50%);
+            box-shadow: 0 0 25px #ff8800, 0 0 50px #0099ff;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes portalPulse {
+            0% {
+                color: #ff8800;
+                text-shadow:
+                    0 0 20px #ff8800,
+                    0 0 40px #ff8800,
+                    0 0 60px #0099ff,
+                    3px 3px 0px #0099ff;
+            }
+            100% {
+                color: #0099ff;
+                text-shadow:
+                    0 0 20px #0099ff,
+                    0 0 40px #0099ff,
+                    0 0 60px #ff8800,
+                    3px 3px 0px #ff8800;
+            }
+        }
+
+        /* ZELDA THEME */
+        body.theme-zelda {
+            background: linear-gradient(135deg, #0d2b0d 0%, #1a5c1a 25%, #2d8a2d 50%, #1a5c1a 75%, #0d2b0d 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        body.theme-zelda .main-title {
+            color: #ffd700;
+            font-family: 'Righteous', cursive;
+            text-shadow:
+                0 0 15px #ffd700,
+                0 0 30px #ffd700,
+                0 0 45px #228b22,
+                3px 3px 0px #228b22,
+                6px 6px 0px #006400;
+            animation: zeldaFloat 3s ease-in-out infinite;
+            letter-spacing: 0.12em;
+        }
+        body.theme-zelda .subtitle {
+            color: #90ee90;
+            font-family: 'Righteous', cursive;
+            font-size: 1.3rem;
+            text-shadow:
+                0 0 15px #90ee90,
+                2px 2px 0px #228b22;
+        }
+        body.theme-zelda .bottom-item p {
+            color: #ffd700;
+            font-family: 'Righteous', cursive;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        body.theme-zelda .mouse-trail-star {
+            background: #ffd700;
+            box-shadow: 0 0 20px #ffd700, 0 0 40px #228b22;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+        @keyframes zeldaFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* PACMAN THEME */
+        body.theme-pacman {
+            background: linear-gradient(135deg, #000033 0%, #000066 25%, #0000cc 50%, #000066 75%, #000033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        body.theme-pacman::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle, #ffff00 2px, transparent 2px),
+                radial-gradient(circle, #ffff00 2px, transparent 2px);
+            background-size: 100px 100px;
+            background-position: 0 0, 50px 50px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-pacman .main-title {
+            color: #ffff00;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow:
+                4px 4px 0px #ff6600,
+                8px 8px 0px #ff0000,
+                0 0 20px #ffff00;
+            animation: pacmanBounce 0.6s infinite;
+            letter-spacing: 0.08em;
+            font-size: 4rem;
+        }
+        body.theme-pacman .subtitle {
+            color: #00ffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            text-shadow: 3px 3px 0px #ff00ff;
+        }
+        body.theme-pacman .bottom-item p {
+            color: #ffff00;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            text-shadow: 2px 2px 0px #ff6600;
+        }
+        body.theme-pacman .mouse-trail-star {
+            background: #ffff00;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #ffff00;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes pacmanBounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* TRON THEME */
+        body.theme-tron {
+            background: linear-gradient(135deg, #000000 0%, #001a33 25%, #003366 50%, #001a33 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+        body.theme-tron::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(90deg, transparent 49%, #00ffff 49%, #00ffff 51%, transparent 51%),
+                linear-gradient(transparent 49%, #00ffff 49%, #00ffff 51%, transparent 51%);
+            background-size: 100px 100px;
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
+        }
+        body.theme-tron .main-title {
+            color: #00ffff;
+            font-family: 'Audiowide', cursive;
+            text-shadow:
+                0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff,
+                0 0 40px #0099ff,
+                0 5px 0px #0066cc;
+            animation: tronGlow 1.5s infinite alternate;
+            letter-spacing: 0.2em;
+        }
+        body.theme-tron .subtitle {
+            color: #0099ff;
+            font-family: 'Audiowide', cursive;
+            font-size: 1.3rem;
+            text-shadow:
+                0 0 15px #0099ff,
+                0 0 30px #0099ff;
+        }
+        body.theme-tron .bottom-item p {
+            color: #00ffff;
+            font-family: 'Audiowide', cursive;
+            text-shadow: 0 0 10px #00ffff;
+        }
+        body.theme-tron .mouse-trail-star {
+            background: #00ffff;
+            box-shadow: 0 0 30px #00ffff, 0 0 60px #0099ff;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes tronGlow {
+            0% {
+                text-shadow:
+                    0 0 10px #00ffff,
+                    0 0 20px #00ffff,
+                    0 0 30px #00ffff,
+                    0 0 40px #0099ff,
+                    0 5px 0px #0066cc;
+            }
+            100% {
+                text-shadow:
+                    0 0 20px #00ffff,
+                    0 0 40px #00ffff,
+                    0 0 60px #00ffff,
+                    0 0 80px #0099ff,
+                    0 5px 0px #0066cc;
+            }
+        }
+
+        /* Cyberpunk theme - NEW CUSTOM */
+        body.theme-cyberpunk {
+            background: linear-gradient(135deg, #0a0015 0%, #1a0033 20%, #ff006e 40%, #ffbe0b 60%, #00f5ff 80%, #0a0015 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 4s ease infinite;
+        }
+        body.theme-cyberpunk .main-title {
+            color: #00f5ff;
+            font-family: 'Audiowide', cursive;
+            text-shadow: 0 0 10px #00f5ff, 0 0 20px #00f5ff, 0 0 30px #ff006e, 0 0 40px #ff006e, 2px 2px 0px #ffbe0b, 4px 4px 0px #ff006e;
+            animation: cyberpunkFlicker 0.3s infinite alternate;
+            letter-spacing: 0.1em;
+        }
+        body.theme-cyberpunk .subtitle {
+            color: #ffbe0b;
+            font-family: 'Audiowide', cursive;
+            font-size: 1.3rem;
+            text-shadow: 0 0 15px #ffbe0b, 2px 2px 0px #ff006e;
+        }
+        body.theme-cyberpunk .bottom-item p {
+            color: #00f5ff;
+            font-family: 'Iceland', cursive;
+            font-size: 1.1rem;
+            text-shadow: 0 0 10px #00f5ff;
+        }
+        body.theme-cyberpunk .mouse-trail-star {
+            background: #00f5ff;
+            box-shadow: 0 0 20px #00f5ff, 0 0 40px #ff006e;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes cyberpunkFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        /* Arcade theme - NEW CUSTOM */
+        body.theme-arcade {
+            background: linear-gradient(135deg, #1a0033 0%, #330066 25%, #ff00ff 50%, #ffff00 75%, #00ffff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 3s linear infinite;
+        }
+        body.theme-arcade .main-title {
+            color: #ffff00;
+            font-family: 'Press Start 2P', cursive;
+            text-shadow: 4px 4px 0px #ff00ff, 8px 8px 0px #00ffff, 0 0 20px #ffff00;
+            animation: arcadeBounce 0.5s infinite;
+            letter-spacing: 0.05em;
+            font-size: 4rem;
+        }
+        body.theme-arcade .subtitle {
+            color: #ff00ff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            text-shadow: 3px 3px 0px #00ffff;
+        }
+        body.theme-arcade .bottom-item p {
+            color: #00ffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            text-shadow: 2px 2px 0px #ff00ff;
+        }
+        body.theme-arcade .mouse-trail-star {
+            background: #ffff00;
+            box-shadow: 0 0 20px #ffff00, 0 0 40px #ff00ff;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes arcadeBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Synthwave theme - NEW CUSTOM */
+        body.theme-synthwave {
+            background: linear-gradient(135deg, #2b0a3d 0%, #ff0080 25%, #ff8c00 50%, #ff0080 75%, #2b0a3d 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 6s ease infinite;
+        }
+        body.theme-synthwave .main-title {
+            color: #ff0080;
+            font-family: 'Monoton', cursive;
+            text-shadow: 0 0 20px #ff0080, 0 0 40px #ff0080, 0 0 60px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
+            animation: synthwavePulse 2s infinite;
+            letter-spacing: 0.2em;
+        }
+        body.theme-synthwave .subtitle {
+            color: #ff8c00;
+            font-family: 'Righteous', cursive;
+            font-size: 1.4rem;
+            text-shadow: 0 0 15px #ff8c00, 0 3px 0px #8b00ff;
+        }
+        body.theme-synthwave .bottom-item p {
+            color: #8b00ff;
+            font-family: 'Righteous', cursive;
+            text-shadow: 0 0 10px #8b00ff;
+        }
+        body.theme-synthwave .mouse-trail-star {
+            background: #ff0080;
+            box-shadow: 0 0 25px #ff0080, 0 0 50px #ff8c00;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes synthwavePulse {
+            0%, 100% {
+                text-shadow: 0 0 20px #ff0080, 0 0 40px #ff0080, 0 0 60px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
+            }
+            50% {
+                text-shadow: 0 0 30px #ff0080, 0 0 60px #ff0080, 0 0 80px #ff8c00, 0 5px 0px #ff8c00, 0 10px 0px #8b00ff;
+            }
+        }
+
+        /* Hacker/Terminal theme - NEW CUSTOM */
+        body.theme-hacker {
+            background: linear-gradient(135deg, #000000 0%, #001a00 25%, #003300 50%, #001a00 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        body.theme-hacker .main-title {
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00;
+            animation: hackerType 4s steps(40) infinite;
+            letter-spacing: 0.1em;
+            border-right: 3px solid #00ff00;
+        }
+        body.theme-hacker .subtitle {
+            color: #33ff33;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px #33ff33;
+        }
+        body.theme-hacker .subtitle::before {
+            content: '> ';
+            color: #00ff00;
+        }
+        body.theme-hacker .bottom-item p {
+            color: #66ff66;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px #66ff66;
+        }
+        body.theme-hacker .mouse-trail-star {
+            background: #00ff00;
+            box-shadow: 0 0 15px #00ff00;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+        @keyframes hackerType {
+            0%, 100% { border-right-color: #00ff00; }
+            50% { border-right-color: transparent; }
+        }
+
+        /* Gothic theme - NEW CUSTOM */
+        body.theme-gothic {
+            background: linear-gradient(135deg, #0d0000 0%, #1a0000 25%, #4d0000 50%, #800000 75%, #0d0000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+        }
+        body.theme-gothic .main-title {
+            color: #cc0000;
+            font-family: 'Creepster', cursive;
+            text-shadow: 0 0 30px #cc0000, 0 0 60px #800000, 5px 5px 0px #000000;
+            animation: gothicFloat 4s ease-in-out infinite;
+            letter-spacing: 0.15em;
+        }
+        body.theme-gothic .subtitle {
+            color: #ff3333;
+            font-family: 'Creepster', cursive;
+            font-size: 1.3rem;
+            text-shadow: 0 0 20px #ff3333, 3px 3px 0px #000000;
+        }
+        body.theme-gothic .bottom-item p {
+            color: #ff6666;
+            font-family: 'Creepster', cursive;
+            text-shadow: 0 0 10px #ff6666;
+        }
+        body.theme-gothic .mouse-trail-star {
+            background: #cc0000;
+            box-shadow: 0 0 25px #cc0000;
+            animation: fadeOutStar 0.8s ease-out forwards;
+        }
+        @keyframes gothicFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Neon City theme - NEW CUSTOM */
+        body.theme-neoncity {
+            background: linear-gradient(135deg, #000033 0%, #660099 20%, #ff00cc 40%, #00ffff 60%, #ffff00 80%, #000033 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 5s ease infinite;
+        }
+        body.theme-neoncity .main-title {
+            color: #ffffff;
+            font-family: 'Bungee Shade', cursive;
+            text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #ffff00;
+            animation: neonCityFlash 1s infinite alternate;
+            letter-spacing: 0.1em;
+        }
+        body.theme-neoncity .subtitle {
+            color: #ff00cc;
+            font-family: 'Russo One', sans-serif;
+            font-size: 1.4rem;
+            text-shadow: 0 0 20px #ff00cc, 0 0 40px #00ffff;
+        }
+        body.theme-neoncity .bottom-item p {
+            color: #00ffff;
+            font-family: 'Russo One', sans-serif;
+            text-shadow: 0 0 15px #00ffff;
+        }
+        body.theme-neoncity .mouse-trail-star {
+            background: #ff00cc;
+            box-shadow: 0 0 30px #ff00cc, 0 0 60px #00ffff;
+            animation: fadeOutStar 0.3s ease-out forwards;
+        }
+        @keyframes neonCityFlash {
+            0% {
+                text-shadow: 0 0 10px #ff00cc, 0 0 20px #ff00cc, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #ffff00;
+            }
+            100% {
+                text-shadow: 0 0 20px #ff00cc, 0 0 40px #ff00cc, 0 0 60px #00ffff, 0 0 80px #00ffff, 0 0 100px #ffff00;
+            }
+        }
+
+        /* Retro Wave theme - NEW CUSTOM */
+        body.theme-retrowave {
+            background: linear-gradient(135deg, #000000 0%, #ff006e 25%, #8338ec 50%, #3a86ff 75%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 7s ease infinite;
+        }
+        body.theme-retrowave .main-title {
+            color: #ff006e;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 3px 3px 0px #8338ec, 6px 6px 0px #3a86ff, 0 0 30px #ff006e;
+            animation: retroWaveShift 3s infinite;
+            letter-spacing: 0.12em;
+        }
+        body.theme-retrowave .subtitle {
+            color: #8338ec;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3rem;
+            text-shadow: 2px 2px 0px #3a86ff, 0 0 20px #8338ec;
+        }
+        body.theme-retrowave .bottom-item p {
+            color: #3a86ff;
+            font-family: 'Fredoka One', cursive;
+            text-shadow: 0 0 15px #3a86ff;
+        }
+        body.theme-retrowave .mouse-trail-star {
+            background: #ff006e;
+            box-shadow: 0 0 25px #ff006e, 0 0 50px #8338ec;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes retroWaveShift {
+            0%, 100% {
+                text-shadow: 3px 3px 0px #8338ec, 6px 6px 0px #3a86ff, 0 0 30px #ff006e;
+            }
+            50% {
+                text-shadow: -3px 3px 0px #8338ec, 6px -6px 0px #3a86ff, 0 0 40px #ff006e;
+            }
+        }
+
+        /* Cosmic theme - NEW CUSTOM */
+        body.theme-cosmic {
+            background: linear-gradient(135deg, #000000 0%, #1a0033 20%, #4d0099 40%, #9900ff 60%, #ff00ff 80%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+        body.theme-cosmic .main-title {
+            color: #ff00ff;
+            font-family: 'Black Ops One', cursive;
+            text-shadow: 0 0 20px #ff00ff, 0 0 40px #9900ff, 0 0 60px #4d0099, 0 0 80px #1a0033;
+            animation: cosmicSpin 5s linear infinite;
+            letter-spacing: 0.15em;
+        }
+        body.theme-cosmic .subtitle {
+            color: #9900ff;
+            font-family: 'Black Ops One', cursive;
+            font-size: 1.2rem;
+            text-shadow: 0 0 25px #9900ff;
+        }
+        body.theme-cosmic .bottom-item p {
+            color: #ff00ff;
+            font-family: 'Black Ops One', cursive;
+            font-size: 0.85rem;
+            text-shadow: 0 0 15px #ff00ff;
+        }
+        body.theme-cosmic .mouse-trail-star {
+            background: #ff00ff;
+            box-shadow: 0 0 30px #ff00ff, 0 0 60px #9900ff;
+            animation: fadeOutStar 0.5s ease-out forwards;
+        }
+        @keyframes cosmicSpin {
+            0% {
+                text-shadow: 0 0 20px #ff00ff, 0 0 40px #9900ff, 0 0 60px #4d0099, 0 0 80px #1a0033;
+            }
+            50% {
+                text-shadow: 0 0 40px #ff00ff, 0 0 60px #9900ff, 0 0 80px #4d0099, 0 0 100px #1a0033;
+            }
+            100% {
+                text-shadow: 0 0 20px #ff00ff, 0 0 40px #9900ff, 0 0 60px #4d0099, 0 0 80px #1a0033;
+            }
+        }
+
+        /* GRID THEME - Clean minimal design */
+        body.theme-grid {
+            background: #000000;
+            position: relative;
+        }
+        body.theme-grid::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 1;
+            animation: gridMove 20s linear infinite;
+        }
+        body.theme-grid::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.5) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+        body.theme-grid .main-title {
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.8),
+                0 0 20px rgba(255, 255, 255, 0.6),
+                0 0 30px rgba(255, 255, 255, 0.4),
+                2px 2px 0px rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            animation: gridTitlePulse 3s ease-in-out infinite;
+        }
+        body.theme-grid .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 500;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.15em;
+        }
+        body.theme-grid .bottom-item p {
+            color: rgba(255, 255, 255, 0.85);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 400;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+        body.theme-grid .sidebar {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        body.theme-grid #bottom-menu {
+            background: rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        body.theme-grid .sidebar-item a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        body.theme-grid .icon:hover {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+        body.theme-grid .mouse-trail-star {
+            background: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        body.theme-grid .theme-indicator {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+        @keyframes gridTitlePulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 10px rgba(255, 255, 255, 0.8),
+                    0 0 20px rgba(255, 255, 255, 0.6),
+                    0 0 30px rgba(255, 255, 255, 0.4),
+                    2px 2px 0px rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                text-shadow:
+                    0 0 20px rgba(255, 255, 255, 1),
+                    0 0 40px rgba(255, 255, 255, 0.8),
+                    0 0 60px rgba(255, 255, 255, 0.6),
+                    2px 2px 0px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        /* Vaporwave theme */
+        body.theme-vaporwave {
+            background: linear-gradient(135deg, #ff71ce 0%, #01cdfe 20%, #05ffa1 40%, #b967ff 60%, #fffb96 80%, #ff71ce 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 5s ease infinite;
+        }
+        body.theme-vaporwave .main-title {
+            color: #ff71ce;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 3px 3px 0px #01cdfe, 6px 6px 0px #05ffa1, 9px 9px 0px #b967ff;
+            animation: vaporwaveGlitch 4s infinite;
+            letter-spacing: 0.15em;
+        }
+        body.theme-vaporwave .subtitle {
+            color: #01cdfe;
+            font-family: 'VT323', monospace;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 0px #ff71ce;
+        }
+        body.theme-vaporwave .bottom-item p {
+            color: #fffb96;
+            font-family: 'VT323', monospace;
+            text-shadow: 1px 1px 0px #b967ff;
+        }
+        body.theme-vaporwave .mouse-trail-star {
+            background: #ff71ce;
+            box-shadow: 0 0 20px #ff71ce, 0 0 40px #01cdfe;
+            animation: fadeOutStar 0.4s ease-out forwards;
+        }
+        @keyframes vaporwaveGlitch {
+            0%, 90%, 100% {
+                transform: translateX(0) skew(0deg);
+                text-shadow: 3px 3px 0px #01cdfe, 6px 6px 0px #05ffa1, 9px 9px 0px #b967ff;
+            }
+            91% {
+                transform: translateX(-5px) skew(-2deg);
+                text-shadow: -3px 3px 0px #01cdfe, 6px -6px 0px #05ffa1, -9px 9px 0px #b967ff;
+            }
+            93% {
+                transform: translateX(5px) skew(2deg);
+                text-shadow: 3px -3px 0px #01cdfe, -6px 6px 0px #05ffa1, 9px -9px 0px #b967ff;
+            }
+            95% {
+                transform: translateX(-3px) skew(-1deg);
+            }
+        }
+
+        /* Common animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes fadeOutStar {
+            0% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.3) rotate(180deg);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(235, 218, 244, 0.8);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .mobile-warning {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
+            background: rgba(52, 12, 96, 0.9);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .mobile-warning .title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: lowercase;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-warning {
+                display: block;
+            }
+            .sidebar, .main-content, #bottom-menu {
+                display: none;
+            }
+        }
+
+        .main-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: #ebdaf4;
+            text-transform: lowercase;
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(235, 218, 244, 0.9);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .icon img {
+            width: 60px;
+            height: 60px;
+            filter: brightness(0) invert(1);
+        }
+
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 100;
+            width: 60px;
+        }
+
+        .sidebar-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-item a {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .sidebar-item a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .sidebar-item a img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        .sidebar-item-descriptor {
+            position: absolute;
+            right: 60px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            font-size: 0.875rem;
+            text-transform: lowercase;
+        }
+
+        .sidebar-item:hover .sidebar-item-descriptor {
+            opacity: 1;
+        }
+
+        #bottom-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 60px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .bottom-item p {
+            font-size: 0.875rem;
+            color: rgba(235, 218, 244, 0.9);
+        }
+
+        .loading-game {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
+            background: rgba(52, 12, 96, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+        }
+
+        .loading-game.active {
+            display: block;
+        }
+
+        .loading-game .title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-transform: lowercase;
+            color: #ebdaf4;
+        }
+
+        .loading-game p {
+            color: rgba(235, 218, 244, 0.8);
+        }
+
+        .mouse-trail-star {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            background: #b19cd9;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            pointer-events: none;
+            z-index: 9999;
+            animation: fadeOutStar 1.5s ease-out forwards;
+        }
+
+        .theme-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            text-transform: lowercase;
+            z-index: 101;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-indicator.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-warning">
+        <h1 class="title">your device is not supported!</h1>
+        <p>please rotate your screen for the best experience.</p>
+    </div>
+
+    <div class="loading-game">
+        <h1 class="title">we are loading your game!</h1>
+        <p>please allow us to fetch the data first, this should only take a second.</p>
+    </div>
+
+    <div class="theme-indicator" id="themeIndicator"></div>
+
+    <canvas id="particle-canvas"></canvas>
+    <div class="stars"></div>
+
+    <div class="main-content">
+        <h1 class="main-title">clover.</h1>
+        <p class="subtitle">clover</p>
+
+        <div class="social-icons">
+            <div class="icon" id="user-icon">
+                <img src="https://ext.same-assets.com/3317140723/1053687971.svg" alt="User" width="60" height="60">
+            </div>
+            <div class="icon" id="center-game-icon">
+                <img src="https://ext.same-assets.com/3317140723/1682574575.svg" alt="Games" width="60" height="60">
+            </div>
+            <div class="icon" id="discord-icon">
+                <img src="https://ext.same-assets.com/3317140723/2489687227.svg" alt="Discord" width="60" height="60">
+            </div>
+        </div>
+    </div>
+
+    <nav class="sidebar">
+        <div class="sidebar-item">
+            <a href="#" data-target="/home">
+                <img src="https://ext.same-assets.com/3317140723/762381749.svg" alt="Home" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">home</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="games-link">
+                <img src="https://ext.same-assets.com/3317140723/1682574575.svg" alt="Games" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">games</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="apps-link">
+                <img src="https://ext.same-assets.com/3317140723/998683769.svg" alt="Apps" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">apps</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" data-target="/bookmarklets">
+                <img src="https://ext.same-assets.com/3317140723/2918451387.svg" alt="Bookmarklets" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">bookmarklets</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="openblank">
+                <img src="https://ext.same-assets.com/3317140723/2600602730.svg" alt="Open Blank" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">open blank</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="fullscreen">
+                <img src="https://ext.same-assets.com/3317140723/3724763578.svg" alt="Fullscreen" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">fullscreen</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="user-profile-link">
+                <img src="https://ext.same-assets.com/3317140723/2067000323.svg" alt="User Profile" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">user profile</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" id="settings-link">
+                <img src="https://ext.same-assets.com/3317140723/1346388685.svg" alt="Settings" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">settings (change theme)</div>
+        </div>
+        <div class="sidebar-item">
+            <a href="#" data-target="/info">
+                <img src="https://ext.same-assets.com/3317140723/2152150559.svg" alt="Information" width="24" height="24">
+            </a>
+            <div class="sidebar-item-descriptor">information</div>
+        </div>
+    </nav>
+
+    <div id="bottom-menu">
+        <div class="bottom-item">
+            <p id="online">currently online: <span class="online-count">1223</span></p>
+        </div>
+        <div class="bottom-item">
+            <p>|</p>
+        </div>
+        <div class="bottom-item">
+            <p id="weather">35°F ☁️</p>
+        </div>
+        <div class="bottom-item">
+            <p>|</p>
+        </div>
+        <div class="bottom-item">
+            <p id="time">1:28:57 PM</p>
+        </div>
+    </div>
+
+    <script>
+        // Sound Effects - Minecraft-style click sound
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        let soundEnabled = true;
+
+        function playClickSound() {
+            if (!soundEnabled) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Minecraft click sound parameters
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.05);
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+
+            oscillator.type = 'square';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.05);
+        }
+
+        function playHoverSound() {
+            if (!soundEnabled) return;
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Minecraft hover sound parameters
+            oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.03);
+
+            oscillator.type = 'sine';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.03);
+        }
+
+        // Create stars/particles
+        function createStars() {
+            const starsContainer = document.querySelector('.stars');
+            if (!starsContainer) return;
+
+            const starCount = 50;
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (2 + Math.random() * 3) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Theme management - UPDATED WITH NEW THEMES
+        let currentTheme = 'normal';
+        const themes = [
+            'normal', 'black', 'green', 'red', 'rambo',
+            'cyberpunk2077', 'minecraft', 'doom', 'portal', 'zelda',
+            'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave',
+            'hacker', 'gothic', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'
+        ];
+
+        const themeColors = {
+            normal: { particle: 'rgba(177, 156, 217, 0.6)', line: '177, 156, 217', speed: 1 },
+            black: { particle: 'rgba(255, 255, 255, 0.6)', line: '255, 255, 255', speed: 1 },
+            green: { particle: 'rgba(144, 238, 144, 0.6)', line: '144, 238, 144', speed: 1 },
+            red: { particle: 'rgba(255, 102, 102, 0.6)', line: '255, 102, 102', speed: 1 },
+            rambo: { particle: 'rgba(255, 0, 0, 0.8)', line: '255, 0, 0', speed: 5 },
+            cyberpunk2077: { particle: 'rgba(252, 231, 24, 0.8)', line: '0, 240, 255', speed: 4 },
+            minecraft: { particle: 'rgba(139, 69, 19, 0.7)', line: '34, 139, 34', speed: 2 },
+            doom: { particle: 'rgba(255, 0, 0, 0.9)', line: '255, 102, 0', speed: 6 },
+            portal: { particle: 'rgba(255, 136, 0, 0.8)', line: '0, 153, 255', speed: 3 },
+            zelda: { particle: 'rgba(255, 215, 0, 0.7)', line: '34, 139, 34', speed: 2 },
+            pacman: { particle: 'rgba(255, 255, 0, 0.9)', line: '255, 102, 0', speed: 4 },
+            tron: { particle: 'rgba(0, 255, 255, 0.8)', line: '0, 255, 255', speed: 4 },
+            grid: { particle: 'rgba(255, 255, 255, 0.8)', line: '255, 255, 255', speed: 2 },
+            cyberpunk: { particle: 'rgba(0, 245, 255, 0.8)', line: '0, 245, 255', speed: 4 },
+            arcade: { particle: 'rgba(255, 255, 0, 0.9)', line: '255, 0, 255', speed: 5 },
+            synthwave: { particle: 'rgba(255, 0, 128, 0.8)', line: '255, 0, 128', speed: 3 },
+            hacker: { particle: 'rgba(0, 255, 0, 0.7)', line: '0, 255, 0', speed: 2.5 },
+            gothic: { particle: 'rgba(204, 0, 0, 0.7)', line: '204, 0, 0', speed: 1 },
+            neoncity: { particle: 'rgba(255, 0, 204, 0.9)', line: '0, 255, 255', speed: 4 },
+            retrowave: { particle: 'rgba(255, 0, 110, 0.8)', line: '131, 56, 236', speed: 3 },
+            cosmic: { particle: 'rgba(255, 0, 255, 0.8)', line: '255, 0, 255', speed: 2 },
+            vaporwave: { particle: 'rgba(255, 113, 206, 0.9)', line: '1, 205, 254', speed: 4 }
+        };
+
+        // Particle system
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+        const connectionDistance = 150;
+        const particleCount = 80;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.baseVx = (Math.random() - 0.5) * 0.5;
+                this.baseVy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                const speedMultiplier = themeColors[currentTheme].speed;
+                this.x += this.baseVx * speedMultiplier;
+                this.y += this.baseVy * speedMultiplier;
+
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+            }
+
+            draw() {
+                ctx.fillStyle = themeColors[currentTheme].particle;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (const particle of particles) {
+                particle.update();
+                particle.draw();
+
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - particle.x;
+                    const dy = mouse.y - particle.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'neoncity', 'retrowave', 'vaporwave'];
+                    const currentConnectionDistance = fastThemes.includes(currentTheme) ? 250 : connectionDistance;
+                    if (distance < currentConnectionDistance) {
+                        const opacity = 1 - (distance / currentConnectionDistance);
+                        const lineOpacity = fastThemes.includes(currentTheme) ? opacity * 0.8 : opacity * 0.5;
+                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
+                        ctx.lineWidth = fastThemes.includes(currentTheme) ? 2 : 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particle.x, particle.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'neoncity', 'vaporwave'];
+                    const particleConnectionDistance = fastThemes.includes(currentTheme) ? 150 : 100;
+                    if (distance < particleConnectionDistance) {
+                        const opacity = 1 - (distance / particleConnectionDistance);
+                        const lineOpacity = fastThemes.includes(currentTheme) ? opacity * 0.4 : opacity * 0.2;
+                        ctx.strokeStyle = `rgba(${themeColors[currentTheme].line}, ${lineOpacity})`;
+                        ctx.lineWidth = fastThemes.includes(currentTheme) ? 1.5 : 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Mouse trail effect
+        let mouseTrailTimeout;
+        document.addEventListener('mousemove', function(e) {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+
+            if (mouseTrailTimeout) return;
+
+            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+            const throttleTime = fastThemes.includes(currentTheme) ? 20 : 50;
+            mouseTrailTimeout = setTimeout(function() {
+                mouseTrailTimeout = null;
+            }, throttleTime);
+
+            const star = document.createElement('div');
+            star.className = 'mouse-trail-star';
+            star.style.left = (e.clientX - 6) + 'px';
+            star.style.top = (e.clientY - 6) + 'px';
+
+            document.body.appendChild(star);
+
+            const removeTime = ['rambo', 'cyberpunk2077', 'doom', 'cyberpunk', 'arcade', 'vaporwave'].includes(currentTheme) ? 500 : 1500;
+            setTimeout(function() {
+                star.remove();
+            }, removeTime);
+        });
+
+        // Update time
+        function updateTime() {
+            const timeElement = document.getElementById('time');
+            if (!timeElement) return;
+
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+
+            timeElement.textContent = displayHours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        }
+
+        // Update online count with animation - ENHANCED
+        function updateOnlineCount() {
+            const onlineCountElement = document.querySelector('.online-count');
+            if (!onlineCountElement) return;
+
+            const baseCount = 1223;
+            const variation = Math.floor(Math.random() * 30) - 15;
+            const newCount = baseCount + variation;
+
+            onlineCountElement.classList.add('updating');
+
+            // Add number counting animation
+            const oldCount = parseInt(onlineCountElement.textContent);
+            const diff = newCount - oldCount;
+            const steps = 10;
+            const stepValue = diff / steps;
+            let currentStep = 0;
+
+            const countInterval = setInterval(function() {
+                currentStep++;
+                if (currentStep <= steps) {
+                    const displayCount = Math.round(oldCount + (stepValue * currentStep));
+                    onlineCountElement.textContent = displayCount;
+                } else {
+                    clearInterval(countInterval);
+                    onlineCountElement.textContent = newCount;
+                    onlineCountElement.classList.remove('updating');
+                }
+            }, 30);
+        }
+
+        // Show theme indicator
+        function showThemeIndicator(themeName) {
+            const indicator = document.getElementById('themeIndicator');
+            if (!indicator) return;
+
+            const currentIndex = themes.indexOf(themeName) + 1;
+            const totalThemes = themes.length;
+            indicator.textContent = 'theme: ' + themeName + ' (' + currentIndex + '/' + totalThemes + ')';
+            indicator.classList.add('show');
+
+            setTimeout(function() {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        function openGamesPage() {
+            const loadingGame = document.querySelector('.loading-game');
+            if (loadingGame) {
+                loadingGame.classList.add('active');
+                setTimeout(function() {
+                    loadingGame.classList.remove('active');
+                }, 1000);
+            }
+
+            const newWindow = window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = 'https://sites.google.com/view/cloveer/clovers-home';
+            }
+        }
+
+        function openDiscord() {
+            const discordUrl = 'https://discord.gg/aQ8YSn79xQ';
+            const newWindow = window.open(discordUrl, '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = discordUrl;
+            }
+        }
+
+        function openSteamProfile() {
+            const steamUrl = 'https://steamcommunity.com/profiles/76561199703728458/';
+            const newWindow = window.open(steamUrl, '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = steamUrl;
+            }
+        }
+
+        function openGitHubProfile() {
+            const githubUrl = 'https://github.com/artinRahm';
+            const newWindow = window.open(githubUrl, '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = githubUrl;
+            }
+        }
+
+        function openAppsPage() {
+            const appsUrl = 'https://artinrahm.github.io/clloover/';
+            const newWindow = window.open(appsUrl, '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = appsUrl;
+            }
+        }
+
+        function openInfoPage() {
+            const infoUrl = 'https://github.com/artinRahm/artinrahm.github.io/tree/main';
+            const newWindow = window.open(infoUrl, '_blank');
+            if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                window.location.href = infoUrl;
+            }
+        }
+
+        function changeTheme() {
+            playClickSound(); // Play sound when changing theme
+
+            const currentIndex = themes.indexOf(currentTheme);
+            const nextIndex = (currentIndex + 1) % themes.length;
+            const nextTheme = themes[nextIndex];
+
+            if (currentTheme !== 'normal') {
+                document.body.classList.remove('theme-' + currentTheme);
+            }
+
+            if (nextTheme !== 'normal') {
+                document.body.classList.add('theme-' + nextTheme);
+            }
+
+            const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+            if (fastThemes.includes(nextTheme) && !fastThemes.includes(currentTheme)) {
+                const extraParticles = ['arcade', 'doom', 'vaporwave'].includes(nextTheme) ? 150 : 120;
+                for (let i = 0; i < extraParticles; i++) {
+                    particles.push(new Particle());
+                }
+            }
+            else if (fastThemes.includes(currentTheme) && !fastThemes.includes(nextTheme)) {
+                particles = particles.slice(0, particleCount);
+            }
+
+            currentTheme = nextTheme;
+            localStorage.setItem('selectedTheme', currentTheme);
+            showThemeIndicator(currentTheme);
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('selectedTheme');
+            if (savedTheme && themes.includes(savedTheme)) {
+                currentTheme = savedTheme;
+                if (currentTheme !== 'normal') {
+                    document.body.classList.add('theme-' + currentTheme);
+                }
+                const fastThemes = ['rambo', 'cyberpunk2077', 'doom', 'portal', 'pacman', 'tron', 'grid', 'cyberpunk', 'arcade', 'synthwave', 'hacker', 'neoncity', 'retrowave', 'cosmic', 'vaporwave'];
+                if (fastThemes.includes(currentTheme)) {
+                    const extraParticles = ['arcade', 'doom', 'vaporwave'].includes(currentTheme) ? 150 : 120;
+                    for (let i = 0; i < extraParticles; i++) {
+                        particles.push(new Particle());
+                    }
+                }
+            }
+        }
+
+        // Add hover sound effects to all interactive elements
+        function addHoverSounds() {
+            const interactiveElements = document.querySelectorAll('.icon, .sidebar-item a, .bottom-item');
+            interactiveElements.forEach(function(element) {
+                element.addEventListener('mouseenter', playHoverSound);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            createStars();
+            updateTime();
+            updateOnlineCount();
+            addHoverSounds(); // Add hover sounds to elements
+
+            const gamesLink = document.getElementById('games-link');
+            if (gamesLink) {
+                gamesLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    openGamesPage();
+                });
+            }
+
+            const centerGameIcon = document.getElementById('center-game-icon');
+            if (centerGameIcon) {
+                centerGameIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    openGamesPage();
+                });
+            }
+
+            const userIcon = document.getElementById('user-icon');
+            if (userIcon) {
+                userIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    openSteamProfile();
+                });
+            }
+
+            const discordIcon = document.getElementById('discord-icon');
+            if (discordIcon) {
+                discordIcon.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    openDiscord();
+                });
+            }
+
+            const openBlankBtn = document.getElementById('openblank');
+            if (openBlankBtn) {
+                openBlankBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    window.open('https://sites.google.com/view/cloveer/clovers-home', '_blank');
+                });
+            }
+
+            const fullscreenBtn = document.getElementById('fullscreen');
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+
+                    if (!document.fullscreenElement) {
+                        document.documentElement.requestFullscreen().catch(function(err) {
+                            console.log('Error attempting to enable fullscreen: ' + err.message);
+                        });
+                    } else {
+                        document.exitFullscreen();
+                    }
+                });
+            }
+
+            const userProfileLink = document.getElementById('user-profile-link');
+            if (userProfileLink) {
+                userProfileLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    openGitHubProfile();
+                });
+            }
+
+            const settingsLink = document.getElementById('settings-link');
+            if (settingsLink) {
+                settingsLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    changeTheme(); // Sound is played inside changeTheme()
+                });
+            }
+
+            const appsLink = document.getElementById('apps-link');
+            if (appsLink) {
+                appsLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    openAppsPage();
+                });
+            }
+
+            const infoLinks = document.querySelectorAll('[data-target="/info"]');
+            infoLinks.forEach(function(infoLink) {
+                infoLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    playClickSound();
+                    openInfoPage();
+                });
+            });
+
+            setInterval(updateTime, 1000);
+            setInterval(updateOnlineCount, 10000);
+        });
+    </script>
+</body>
+</html>
